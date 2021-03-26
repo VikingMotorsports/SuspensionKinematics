@@ -12,7 +12,8 @@ E = extract_pt(rear, 'E') / 1000;
 F = extract_pt(rear, 'F') / 1000;
 
 M = extract_pt(rear, 'M') / 1000;
-N = [100, 255, -180] / 1000; % fake point at the chassis, just for testing
+%N = [100, 255, -180] / 1000; % fake point at the chassis, just for testing
+N = extract_pt(rear, 'N') / 1000;
 
 % [BpB_len, BpB_dim, Bp] = simplified_wishbone_geometry_calc(A, B, C);
 % [EpE_len, EpE_dim, Ep] = simplified_wishbone_geometry_calc(D, E, F);
