@@ -1,6 +1,6 @@
 clear; clc;
 
-%front = readtable('../geometries/VMS_front_rear.xlsx', 'Sheet', 'VMS Front Suspension');
+front = readtable('../geometries/VMS_front_rear.xlsx', 'Sheet', 'VMS Front Suspension');
 rear = readtable('../geometries/VMS_front_rear.xlsx', 'Sheet', 'VMS Rear Suspension');
 
 tire_od = 17.4 * (25.4 / 1000); % meters
@@ -8,34 +8,64 @@ tire_width = 7 * (25.4 / 1000); % meters
 
 extract_pt = @(data, pt) table2array(data(cell2mat(data.Pt) == pt, 2:4));
 
-A = extract_pt(rear, 'A') / 1000;
-B = extract_pt(rear, 'B') / 1000;
-C = extract_pt(rear, 'C') / 1000;
-D = extract_pt(rear, 'D') / 1000;
-E = extract_pt(rear, 'E') / 1000;
-F = extract_pt(rear, 'F') / 1000;
+% rear import
+rear_A = extract_pt(rear, 'A') / 1000;
+rear_B = extract_pt(rear, 'B') / 1000;
+rear_C = extract_pt(rear, 'C') / 1000;
+rear_D = extract_pt(rear, 'D') / 1000;
+rear_E = extract_pt(rear, 'E') / 1000;
+rear_F = extract_pt(rear, 'F') / 1000;
 
-M = extract_pt(rear, 'M') / 1000;
-N = extract_pt(rear, 'N') / 1000;
-P = extract_pt(rear, 'P') / 1000;
-R = extract_pt(rear, 'R') / 1000;
+rear_M = extract_pt(rear, 'M') / 1000;
+rear_N = extract_pt(rear, 'N') / 1000;
+rear_P = extract_pt(rear, 'P') / 1000;
+rear_R = extract_pt(rear, 'R') / 1000;
 
-H = extract_pt(rear, 'H') / 1000;
-J = extract_pt(rear, 'J') / 1000;
-K = extract_pt(rear, 'K') / 1000;
+rear_H = extract_pt(rear, 'H') / 1000;
+rear_J = extract_pt(rear, 'J') / 1000;
+rear_K = extract_pt(rear, 'K') / 1000;
 
-L = extract_pt(rear, 'L') / 1000;
-G = extract_pt(rear, 'G') / 1000;
+rear_L = extract_pt(rear, 'L') / 1000;
+rear_G = extract_pt(rear, 'G') / 1000;
 
-rear_lca = wishbone_geometry_calc(A, B, C);
-rear_uca = rear_uca_calc(D, E, F, N);
+% front import
+front_A = extract_pt(front, 'A') / 1000;
+front_B = extract_pt(front, 'B') / 1000;
+front_C = extract_pt(front, 'C') / 1000;
+front_D = extract_pt(front, 'D') / 1000;
+front_E = extract_pt(front, 'E') / 1000;
+front_F = extract_pt(front, 'F') / 1000;
 
-rear_upright = upright_geometry_calc(B, E, M, P, R);
+front_M = extract_pt(front, 'M') / 1000;
+front_N = extract_pt(front, 'N') / 1000;
+front_P = extract_pt(front, 'P') / 1000;
+front_R = extract_pt(front, 'R') / 1000;
 
-MN_len = norm(M - N);
-toelink_dim = [MN_len, MN_len / 100, MN_len / 100];
+front_H = extract_pt(front, 'H') / 1000;
+front_J = extract_pt(front, 'J') / 1000;
+front_K = extract_pt(front, 'K') / 1000;
 
-rear_bellcrank = rear_bellcrank_calc(H, J, K);
+front_L = extract_pt(front, 'L') / 1000;
+front_G = extract_pt(front, 'G') / 1000;
 
-GH_len = norm(G - H);
-rear_pushrod_dim = [GH_len, GH_len / 100, GH_len / 100];
+% rear calculations
+rear_lca = wishbone_geometry_calc(rear_A, rear_B, rear_C);
+rear_uca = rear_uca_calc(rear_D, rear_E, rear_F, rear_N);
+
+rear_upright = upright_geometry_calc(rear_B, rear_E, rear_M, rear_P, rear_R);
+
+rear_MN_len = norm(rear_M - rear_N);
+rear_toelink_dim = [rear_MN_len, rear_MN_len / 100, rear_MN_len / 100];
+
+rear_bellcrank = rear_bellcrank_calc(rear_H, rear_J, rear_K);
+
+rear_GH_len = norm(rear_G - rear_H);
+rear_pushrod_dim = [rear_GH_len, rear_GH_len / 100, rear_GH_len / 100];
+
+rear_L_cylinder_len = norm(rear_L - rear_J) / 2;
+rear_cylinder_dim = [rear_L_cylinder_len, rear_L_cylinder_len / 100, rear_L_cylinder_len / 100];
+
+rear_J_piston_len = norm(rear_L - rear_J) / 2;
+rear_piston_dim = [rear_J_piston_len, rear_J_piston_len / 100, rear_J_piston_len / 100];
+
+% front calculations
