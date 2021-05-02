@@ -1,4 +1,4 @@
-clear; clc;
+clear; clc; close all;
 
 front = readtable('../geometries/VMS_front_rear.xlsx', 'Sheet', 'VMS Front Suspension');
 rear = readtable('../geometries/VMS_front_rear.xlsx', 'Sheet', 'VMS Rear Suspension');
@@ -7,6 +7,18 @@ tire_od = 17.4 * (25.4 / 1000); % meters
 tire_width = 7 * (25.4 / 1000); % meters
 
 extract_pt = @(data, pt) table2array(data(cell2mat(data.Pt) == pt, 2:4));
+plot_pt = @(pt) plot3(pt(1), pt(2), pt(3), 'o');
+
+% sanity check
+% front_pts = [front_A; front_B; front_C; front_D; front_E; front_F; front_M; front_N; front_P; front_R; front_H; front_J; front_K; front_L; front_G];
+% front_names = 'ABCDEFMNPRHJKLG';
+% figure
+% hold on
+% for i = 1:length(front_pts)
+%     plot_pt(front_pts(i,:));
+%     text(front_pts(i,1)+0.01, front_pts(i,2)+0.01, front_pts(i,3)+0.01, front_names(i));
+% end
+% hold off
 
 % rear import
 rear_A = extract_pt(rear, 'A') / 1000;
@@ -69,3 +81,10 @@ rear_J_piston_len = norm(rear_L - rear_J) / 2;
 rear_piston_dim = [rear_J_piston_len, rear_J_piston_len / 100, rear_J_piston_len / 100];
 
 % front calculations
+front_lca = wishbone_geometry_calc(front_A, front_B, front_C);
+front_uca = wishbone_geometry_calc(front_D, front_E, front_F);
+
+front_upright = upright_geometry_calc(front_B, front_E, front_M, front_P, front_R);
+
+front_MN_len = norm(front_M - front_N);
+front_steering_rod_dim = [front_MN_len, front_MN_len / 100, front_MN_len / 100];

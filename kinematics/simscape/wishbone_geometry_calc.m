@@ -40,4 +40,3 @@ function [wishbone] = wishbone_geometry_calc(A, B, C)
     
     wishbone.basis = [offset; i; j; k];
 end
-

@@ -1,10 +1,10 @@
 function [xp] = world2local(varargin)
 %TRANSFORM Summary of this function goes here
 %   Detailed explanation goes here
-    if nargin == 2
+    if nargin == 2 % {vector to convert, basis as a matrix}
         x = varargin{1}; 
         offset = varargin{2}(1, :); i = varargin{2}(2, :); j = varargin{2}(3, :); k = varargin{2}(4, :);
-    elseif nargin == 5
+    elseif nargin == 5 % {vector to convert, basis_offset, basis_i, basis_j, basis_k}
         x = varargin{1};
         offset = varargin{2}; i = varargin{3}; j = varargin{4}; k = varargin{5};
     else

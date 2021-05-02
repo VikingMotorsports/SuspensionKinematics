@@ -15,11 +15,15 @@ function [upright] = upright_geometry_calc(B, E, M, P, R)
     
     [~, WheelAxis_XRot, WheelAxis_YRot, ~] = WheelAxisLocator(basis, P, R);
 
-    B = [0, 0];
-    E = [norm(BE), 0];
-    M = [norm(BMp), norm(MpM)];
+%     Be = [0, 0];
+%     Ee = [norm(BE), 0];
+%     Me = [norm(BMp), norm(MpM)];
+    Be = [0, 0];
+    Ee = world2local(E, basis); Ee = Ee(1:2);
+    Me = world2local(M, basis); Me = Me(1:2);
     
-    upright.dim = [B; E; M];
+    
+    upright.dim = [Be; Ee; Me];
     upright.basis = basis;
     upright.WheelAxis_XRot = WheelAxis_XRot;
     upright.WheelAxis_YRot = WheelAxis_YRot;
