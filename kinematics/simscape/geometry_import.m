@@ -3,22 +3,11 @@ clear; clc; close all;
 front = readtable('../geometries/VMS_front_rear.xlsx', 'Sheet', 'VMS Front Suspension');
 rear = readtable('../geometries/VMS_front_rear.xlsx', 'Sheet', 'VMS Rear Suspension');
 
-tire_od = 17.4 * (25.4 / 1000); % meters
-tire_width = 7 * (25.4 / 1000); % meters
+tire_od = 17.4 * (25.4 / 1000); % outer diameter of the tire in meters
+tire_width = 7 * (25.4 / 1000); % width of the tire in meters
 
 extract_pt = @(data, pt) table2array(data(cell2mat(data.Pt) == pt, 2:4));
 plot_pt = @(pt) plot3(pt(1), pt(2), pt(3), 'o');
-
-% sanity check
-% front_pts = [front_A; front_B; front_C; front_D; front_E; front_F; front_M; front_N; front_P; front_R; front_H; front_J; front_K; front_L; front_G];
-% front_names = 'ABCDEFMNPRHJKLG';
-% figure
-% hold on
-% for i = 1:length(front_pts)
-%     plot_pt(front_pts(i,:));
-%     text(front_pts(i,1)+0.01, front_pts(i,2)+0.01, front_pts(i,3)+0.01, front_names(i));
-% end
-% hold off
 
 % rear import
 rear_A = extract_pt(rear, 'A') / 1000;
@@ -99,3 +88,16 @@ front_cylinder_dim = [front_L_cylinder_len, front_L_cylinder_len / 20, front_L_c
 
 front_J_piston_len = norm(front_L - front_J) / 2;
 front_piston_dim = [front_J_piston_len, front_J_piston_len / 20, front_J_piston_len / 20];
+
+fprintf("Done\n");
+
+% % sanity check
+% front_pts = [front_A; front_B; front_C; front_D; front_E; front_F; front_M; front_N; front_P; front_R; front_H; front_J; front_K; front_L; front_G];
+% front_names = 'ABCDEFMNPRHJKLG';
+% figure
+% hold on
+% for i = 1:length(front_pts)
+%     plot_pt(front_pts(i,:));
+%     text(front_pts(i,1)+0.01, front_pts(i,2)+0.01, front_pts(i,3)+0.01, front_names(i));
+% end
+% hold off
