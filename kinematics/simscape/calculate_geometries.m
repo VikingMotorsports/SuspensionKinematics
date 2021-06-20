@@ -61,4 +61,24 @@ function [front_s, rear_s] = calculate_geometries(front_p, rear_p)
 
     front_s.left.J_piston_len = norm(front_p.left.L - front_p.left.J) / 2;
     front_s.left.piston_dim = [front_s.left.J_piston_len, front_s.left.J_piston_len / 20, front_s.left.J_piston_len / 20];
+    
+    % front right calculations
+    front_s.right.lca = wishbone_geometry_calc(front_p.right.A, front_p.right.B, front_p.right.C);
+    front_s.right.uca = wishbone_geometry_calc(front_p.right.D, front_p.right.E, front_p.right.F);
+
+    front_s.right.upright = upright_geometry_calc(front_p.right.B, front_p.right.E, front_p.right.M, front_p.right.P, front_p.right.R);
+
+    front_s.right.MN_len = norm(front_p.right.M - front_p.right.N);
+    front_s.right.steering_rod_dim = [front_s.right.MN_len, front_s.right.MN_len / 100, front_s.right.MN_len / 100];
+
+    front_s.right.bellcrank = rear_bellcrank_calc(front_p.right.H, front_p.right.J, front_p.right.K);
+
+    front_s.right.GH_len = norm(front_p.right.G - front_p.right.H);
+    front_s.right.pushrod_dim = [front_s.right.GH_len, front_s.right.GH_len / 100, front_s.right.GH_len / 100];
+
+    front_s.right.L_cylinder_len = norm(front_p.right.L - front_p.right.J) / 2;
+    front_s.right.cylinder_dim = [front_s.right.L_cylinder_len, front_s.right.L_cylinder_len / 20, front_s.right.L_cylinder_len / 20];
+
+    front_s.right.J_piston_len = norm(front_p.right.L - front_p.right.J) / 2;
+    front_s.right.piston_dim = [front_s.right.J_piston_len, front_s.right.J_piston_len / 20, front_s.right.J_piston_len / 20];
 end
