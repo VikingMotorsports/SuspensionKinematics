@@ -1,8 +1,11 @@
 clear; clc; close all;
+addpath 'functions'
+addpath 'subsystems'
+
 fprintf("Running\n");
 
-front_f = readtable('../geometries/VMS_front_rear.xlsx', 'Sheet', 'VMS Front Suspension');
-rear_f = readtable('../geometries/VMS_front_rear.xlsx', 'Sheet', 'VMS Rear Suspension');
+front_f = readtable('geometries/VMS_front_rear.xlsx', 'Sheet', 'VMS Front Suspension');
+rear_f = readtable('geometries/VMS_front_rear.xlsx', 'Sheet', 'VMS Rear Suspension');
 
 tire_od = 17.4 * (25.4 / 1000); % outer diameter of the tire in meters
 tire_width = 7 * (25.4 / 1000); % width of the tire in meters
