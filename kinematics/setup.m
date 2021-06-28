@@ -10,6 +10,14 @@ rear_f = readtable('geometries/VMS_front_rear.xlsx', 'Sheet', 'VMS Rear Suspensi
 tire_od = 17.4 * (25.4 / 1000); % outer diameter of the tire in meters
 tire_width = 7 * (25.4 / 1000); % width of the tire in meters
 
+bump.amp = 0.05;
+bump.bias = 0.2;
+bump.freq = 1; % rad/s
+
+steer.amp = 0;%20e-3;
+steer.bias = 0;
+steer.freq = 20;
+
 plot_pt = @(pt) plot3(pt(3), pt(1), pt(2), 'o');
 
 [front_p, rear_p] = read_points(front_f, rear_f);
