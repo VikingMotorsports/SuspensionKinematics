@@ -12,9 +12,9 @@ tire_width = 7 * (25.4 / 1000); % width of the tire in meters
 
 bump.amp = 0.05;
 bump.bias = 0.2;
-bump.freq = 1; % rad/s
+bump.freq = 2; % rad/s
 
-steer.amp = 0;%20e-3;
+steer.amp = 20e-3;
 steer.bias = 0;
 steer.freq = 20;
 
